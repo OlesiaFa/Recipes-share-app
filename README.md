@@ -29,16 +29,25 @@
 
 ## Screenshots
 
-![Example screenshot](./img/screenshot.png)
+<!--![Example screenshot](./img/screenshot.png)-->
 
 <!-- If you have screenshots you'd like to share, include them here. -->
 
 ## Setup
 - Clone the repository:
+  `git clone https://github.com/OlesiaFa/Recipes-share-app/`
+
+- Install dependencies:
+   `npm install`
+- Start terminal:
+    `npm run dev`
+
+## Usage
+
+-  Register a new account or login with existing credentials.
+-  Navigate to the recipes section to view and post recipes.
+-  Save recipes from other users to your profile for quick access.
   
-
-
-
 ## Contact
 
 <!--Created by [@sample](https://www.mysite.com) - feel free to contact me!-->
