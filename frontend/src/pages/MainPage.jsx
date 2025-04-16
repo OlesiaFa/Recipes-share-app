@@ -4,6 +4,10 @@ import {useDispatch, useSelector} from 'react-redux';
 import { RecipeItem } from '../components/RecipeItem';
 import {PopularRecipes} from '../components/PopularRecipes';
 import { getAllRecipes } from '../redux/features/resipe/recipeSlice';
+<<<<<<< HEAD
+=======
+
+>>>>>>> recovery-branch
  
 export const MainPage = () => {
 
@@ -14,7 +18,11 @@ export const MainPage = () => {
     dispatch(getAllRecipes())
   }, [dispatch])
 
+<<<<<<< HEAD
   if(!recipes.lenth) {
+=======
+  if(!recipes.length) {
+>>>>>>> recovery-branch
     return <div className='text-xl text-center text-white py-10'>
        No Recipes
        </div>
@@ -35,7 +43,11 @@ export const MainPage = () => {
       </div>
       {
         popularRecipes?.map((recipe, idx) => (
+<<<<<<< HEAD
           <PopularRecipes key={idx} pecipe={recipe} />
+=======
+          <PopularRecipes key={idx} recipe={recipe} />
+>>>>>>> recovery-branch
         )) }
       </div>
     </div>

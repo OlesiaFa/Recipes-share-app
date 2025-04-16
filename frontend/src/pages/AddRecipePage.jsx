@@ -20,7 +20,11 @@ const submitHandler =() => {
     data.append('description', description);
     data.append('ingredients', ingredients);
     data.append('instruction', instruction);
+<<<<<<< HEAD
     data.append('immage', image);
+=======
+    data.append('image', image);
+>>>>>>> recovery-branch
     dispatch(createRecipe(data))
     navigate('/')
    
@@ -95,7 +99,11 @@ const clearFormHandler=()=> {
       <button
       onClick={submitHandler} 
       className='flex justify-center items-center bg-gray-600 text-xs text-white rounded-sm py-2 px-4'>
+<<<<<<< HEAD
         Add
+=======
+        Save
+>>>>>>> recovery-branch
       </button>
       <button 
       onClick={clearFormHandler}

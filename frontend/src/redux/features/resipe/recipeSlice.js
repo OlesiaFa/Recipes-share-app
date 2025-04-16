@@ -19,7 +19,11 @@ export const createRecipe = createAsyncThunk(
     }
 )
 
+<<<<<<< HEAD
 export const getAllRecipes = createAsyncThunk('recipe/getRecipes', async() => {
+=======
+export const getAllRecipes = createAsyncThunk('recipe/getAllRecipes', async() => {
+>>>>>>> recovery-branch
     try{
         const {data} = await axios.get('/recipes');
         return data;
@@ -28,6 +32,33 @@ export const getAllRecipes = createAsyncThunk('recipe/getRecipes', async() => {
     }
 })
 
+<<<<<<< HEAD
+=======
+export const removeRecipe = createAsyncThunk('recipe/removeRecipe', async(id)=>{
+    try {
+        const {data} = await axios.delete(`/recipes/${id}`, id)
+        return data;
+    } catch (error) {
+        console.log(error)
+        
+    }
+})
+
+export const updateRecipe = createAsyncThunk(
+    'recipe/updateRecipe', 
+    async(updatedRecipe)=>{
+    try {
+        const {data} = await axios.put(
+            `/recipes/${updatedRecipe.id}`, 
+            updatedRecipe, )
+        return data;
+    } catch (error) {
+        console.log(error)
+        
+    }
+})
+
+>>>>>>> recovery-branch
 export const recipeSlice = createSlice({
     name: 'recipe',
     initialState,
@@ -45,7 +76,11 @@ export const recipeSlice = createSlice({
         .addCase(createRecipe.rejected, (state) =>{
             state.loading = false
         })
+<<<<<<< HEAD
         //get all recipe
+=======
+        //get all recipes
+>>>>>>> recovery-branch
         .addCase(getAllRecipes.pending, (state) =>{
             state.loading = true
         })
@@ -57,6 +92,34 @@ export const recipeSlice = createSlice({
         .addCase(getAllRecipes.rejected, (state) =>{
             state.loading = false
         })
+<<<<<<< HEAD
+=======
+        //delete recipe
+        .addCase(removeRecipe.pending, (state) =>{
+            state.loading = true
+        })
+        .addCase(removeRecipe.fulfilled, (state, action) =>{
+            state.loading = false
+            state.recipes = state.recipes.filter((recipe)=>recipe._id !== action.payload._id,)
+            
+        })
+        .addCase(removeRecipe.rejected, (state) =>{
+            state.loading = false
+        })
+         //update recipe
+         .addCase(updateRecipe.pending, (state) =>{
+            state.loading = true
+        })
+        .addCase(updateRecipe.fulfilled, (state, action) =>{
+            state.loading = false
+            const index = state.recipes.findIndex((recipe) => recipe._id === action.payload._id,)
+            state.recipes[index] = action.payload
+            
+        })
+        .addCase(updateRecipe.rejected, (state) =>{
+            state.loading = false
+        })
+>>>>>>> recovery-branch
     },
 })
 

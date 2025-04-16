@@ -3,6 +3,10 @@ import {Link, NavLink} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux'
 import{checkIsAuth, logout} from '../redux/features/auth/authSlice'
 import {toast}from 'react-toastify';
+<<<<<<< HEAD
+=======
+import {useNavigate} from 'react-router-dom'
+>>>>>>> recovery-branch
 
 export const Navbar = () => {
    const isAuth = useSelector(checkIsAuth);
@@ -13,17 +17,32 @@ export const Navbar = () => {
         color: 'white',
     }
 
+<<<<<<< HEAD
+=======
+    const navigate = useNavigate();
+
+>>>>>>> recovery-branch
 const logoutHandler = () => {
     dispatch(logout())
     window.localStorage.removeItem('token')
     toast('You are logged out')
+<<<<<<< HEAD
+=======
+    navigate('/login');
+>>>>>>> recovery-branch
 }
 
   return (
     <div className = 'flex py-4 justify-between items-center'>
+<<<<<<< HEAD
         <span className='flex justify-center items-center w-6 h-6 bg-gray-600 text-xs text-white rounded-sm '>
             E 
         </span>
+=======
+        <span className='flex justify-center items-center w-6 h-6 text-xs text-white rounded-sm '>
+            
+            </span>
+>>>>>>> recovery-branch
         {isAuth &&(
         <ul className="flex gap-8">
             <li>
