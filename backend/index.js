@@ -5,12 +5,8 @@ import cors from 'cors';
 import fileUpload from 'express-fileupload';
 
 import authRoute from './routes/auth.js';
-<<<<<<< HEAD
-import recipeRoute from './routes/recipes.js'
-=======
 import recipeRoute from './routes/recipes.js';
-import commentRoute from './routes/comment.js'
->>>>>>> recovery-branch
+import commentRoute from './routes/comment.js';
 
 const app = express();
 dotenv.config();
@@ -29,10 +25,7 @@ app.use(express.static('uploads'));
 //http://localhost:3002
 app.use('/api/auth', authRoute);
 app.use('/api/recipes', recipeRoute);
-<<<<<<< HEAD
-=======
 app.use('/api/comments', commentRoute);
->>>>>>> recovery-branch
 
 async function start() {
     try {

@@ -5,6 +5,7 @@ const initialState = {
     recipes: [],
     popularRecipes: [],
     loading: false,
+    favorites: [],
 }
 
 export const createRecipe = createAsyncThunk(
@@ -19,11 +20,7 @@ export const createRecipe = createAsyncThunk(
     }
 )
 
-<<<<<<< HEAD
-export const getAllRecipes = createAsyncThunk('recipe/getRecipes', async() => {
-=======
 export const getAllRecipes = createAsyncThunk('recipe/getAllRecipes', async() => {
->>>>>>> recovery-branch
     try{
         const {data} = await axios.get('/recipes');
         return data;
@@ -32,8 +29,6 @@ export const getAllRecipes = createAsyncThunk('recipe/getAllRecipes', async() =>
     }
 })
 
-<<<<<<< HEAD
-=======
 export const removeRecipe = createAsyncThunk('recipe/removeRecipe', async(id)=>{
     try {
         const {data} = await axios.delete(`/recipes/${id}`, id)
@@ -58,11 +53,34 @@ export const updateRecipe = createAsyncThunk(
     }
 })
 
->>>>>>> recovery-branch
+export const searchRecipeByTitle = createAsyncThunk(
+    'recipes/searchByTitle',
+    async (title, {rejectWithValue}) => {
+        try {
+            const response = await axios.get(`/recipes/search/${title}`);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error?.response?.data?.message || 'Failed to fetch recipes');
+        }
+    }
+);
+
 export const recipeSlice = createSlice({
     name: 'recipe',
     initialState,
-    reducers: {},
+    reducers: {
+        setRecipes: (state, action) => {
+            state.recipes = action.payload;
+    },
+    saveToFavorites: (state, action) =>{
+        const recipe = action.payload;
+        if(state.favorites.some(fav => fav._id === recipe._id)){
+            state.favorites = state.favorites.filter(fav => fav._id !== recipe._id);
+        }else{
+            state.favorites.push(recipe);
+        }
+      },
+    },
     extraReducers:(builder) => {
         builder
         //create recipe
@@ -76,11 +94,7 @@ export const recipeSlice = createSlice({
         .addCase(createRecipe.rejected, (state) =>{
             state.loading = false
         })
-<<<<<<< HEAD
-        //get all recipe
-=======
         //get all recipes
->>>>>>> recovery-branch
         .addCase(getAllRecipes.pending, (state) =>{
             state.loading = true
         })
@@ -92,8 +106,7 @@ export const recipeSlice = createSlice({
         .addCase(getAllRecipes.rejected, (state) =>{
             state.loading = false
         })
-<<<<<<< HEAD
-=======
+        
         //delete recipe
         .addCase(removeRecipe.pending, (state) =>{
             state.loading = true
@@ -119,8 +132,23 @@ export const recipeSlice = createSlice({
         .addCase(updateRecipe.rejected, (state) =>{
             state.loading = false
         })
->>>>>>> recovery-branch
+         //search recipe by title
+         .addCase(searchRecipeByTitle.pending, (state) =>{
+            state.loading = true;
+            state.error = null;
+        })
+        .addCase(searchRecipeByTitle.fulfilled, (state, action) =>{
+            state.loading = false;
+            state.recipes = action.payload;
+            
+        })
+        .addCase(searchRecipeByTitle.rejected, (state, action) =>{
+            state.loading = false;
+            state.error = action.payload;
+        })
     },
-})
+});
+
+export const { saveToFavorites } = recipeSlice.actions;
 
 export default recipeSlice.reducer;

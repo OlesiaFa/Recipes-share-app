@@ -1,10 +1,6 @@
 import {Router} from 'express';
 import {checkAuth} from '../utils/checkAuth.js'
-<<<<<<< HEAD
-import { createRecipe, getAll } from '../controllers/recipes.js';
-=======
-import { createRecipe, getAll, getById, getMyRecipes, removeRecipe, updateRecipe, getRecipeComments } from '../controllers/recipes.js';
->>>>>>> recovery-branch
+import { createRecipe, getAll, getById, getMyRecipes, removeRecipe, updateRecipe, getRecipeComments, searchRecipeByTitle } from '../controllers/recipes.js';
 
 const router = new Router();
 
@@ -16,8 +12,6 @@ router.post('/', checkAuth, createRecipe);
 //http://localhost:3002/api/recipes
 router.get('/', getAll);
 
-<<<<<<< HEAD
-=======
 //Get recipy by Id
 //http://localhost:3002/api/recipes/:id
 router.get('/:id', getById);
@@ -37,6 +31,8 @@ router.put('/:id', checkAuth, updateRecipe);
 //Get Recipe comments
 //http://localhost:3002/api/recipes/comments/:id
 router.get('/comments/:id', getRecipeComments);
->>>>>>> recovery-branch
+
+//search by title
+router.get('/search/:title', searchRecipeByTitle);
 
 export default router;

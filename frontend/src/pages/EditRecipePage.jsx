@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-import React from 'react'
-
-export const EditRecipePage = () => {
-  return (
-    <div>EditRecipePage</div>
-  )
-}
-=======
 import React, { useEffect, useState, useCallback } from 'react';
 import {useDispatch} from 'react-redux';
 import {useNavigate, useParams} from 'react-router-dom';
@@ -139,4 +130,3 @@ setInstruction('');
     </div>
     </form>
 )}
->>>>>>> recovery-branch

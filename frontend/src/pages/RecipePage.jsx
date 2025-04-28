@@ -1,20 +1,13 @@
-<<<<<<< HEAD
-import React from 'react'
-
-export const RecipePage = () => {
-  return (
-    <div>RecipePage</div>
-  )
-=======
 import React from 'react';
 import {useState, useCallback, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import{AiFillEye, AiOutlineMessage, AiTwotoneEdit, AiFillDelete} from 'react-icons/ai';
+import{AiFillEye, AiOutlineMessage, AiTwotoneEdit, AiFillDelete, AiOutlineHeart, AiFillHeart} from 'react-icons/ai';
 import dayjs from 'dayjs';
 import {Link, useParams, useNavigate} from 'react-router-dom';
 import{toast} from 'react-toastify';
 import { removeRecipe } from '../redux/features/resipe/recipeSlice';
 import { CommentItem } from '../components/CommentItem';
+import { saveToFavorites } from '../redux/features/resipe/recipeSlice';
 
 import axios from '../utils/axios';
 import { createComment, getRecipeComments } from '../redux/features/comment/commentSlice';
@@ -28,6 +21,14 @@ export const RecipePage = () => {
   const navigate = useNavigate();
   const params = useParams();
   const dispatch = useDispatch();
+
+  const {favorites} = useSelector((state) => state.recipe);
+
+  
+
+  const handleSaveFavorite = () => {
+      dispatch(saveToFavorites(recipe));
+    };
 
   const removeRecipeHandler =() => {
     try {
@@ -58,7 +59,7 @@ export const RecipePage = () => {
     }
   }, [params.id, dispatch])
 
-
+  
   const fetchRecipe = useCallback(async() => {
     const {data} = await axios.get(`/recipes/${params.id}`)
     setRecipe(data);
@@ -82,18 +83,19 @@ export const RecipePage = () => {
     )
   }
 
+  const isFavorite = recipe && favorites.some(fav => fav._id === recipe._id);
+
 
  return (
       <div className="min-h-screen bg-gray-900 px-4 py-6 flex justify-center">
         <div className="w-full max-w-6xl pl-4">
-          {/* Кнопка назад */}
+          
           <button className="flex justify-center items-center bg-gray-600 text-xs text-white rounded-sm py-2 px-4 mb-4">
             <Link className="flex" to="/">Back</Link>
           </button>
     
-          {/* Контент */}
           <div className="flex flex-col lg:flex-row gap-10 py-8">
-            {/* Левая часть */}
+         
             <div className="w-full lg:w-2/3">
               <div className="flex flex-col basis-1/4 flex-grow">
                 <div className={recipe?.imgUrl ? 'flex rounded-sm h-80' : 'flex rounded-sm'}>
@@ -143,10 +145,21 @@ export const RecipePage = () => {
                     </button>
                   </div>
                 )}
+  
+           {user?._id !== recipe.author && (
+            <div className="flex justify-end">
+            <button
+            onClick={handleSaveFavorite}
+            className={`mt-4 px-4 py-2 ${isFavorite ? 'bg-gray-600' : 'bg-green-700'} text-white rounded-lg`}
+           >
+          {isFavorite ? <AiFillHeart/> : <AiOutlineHeart/>}
+        </button>
+        </div>
+           )}
               </div>
             </div>
+            
     
-            {/* Правая часть - комментарии */}
             <div className="w-full lg:w-1/3 p-8 bg-gray-700 flex flex-col gap-2 rounded-sm">
               <form className="flex flex-col sm:flex-row gap-2" onSubmit={(e) => e.preventDefault()}>
                 <input
@@ -174,5 +187,4 @@ export const RecipePage = () => {
       </div>
     )
   
->>>>>>> recovery-branch
 }

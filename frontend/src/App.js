@@ -7,11 +7,13 @@ import {AddRecipePage} from './pages/AddRecipePage.jsx';
 import {EditRecipePage} from './pages/EditRecipePage.jsx';
 import {LoginPage} from './pages/LoginPage.jsx';
 import {RegisterPage} from './pages/RegisterPage.jsx';
+import {SearchRecipePage} from './pages/SearchRecipePage';
+import {FavoritesRecipesPage} from './pages/FavoritesRecipesPage.jsx';
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {useDispatch} from 'react-redux';
 import {useEffect} from 'react';
-import { getMe} from './redux/features/auth/authSlice.js'
+import { getMe} from './redux/features/auth/authSlice.js';
 
 function App() {
   const dispatch = useDispatch();
@@ -30,6 +32,8 @@ function App() {
       <Route path='register' element = {<RegisterPage />} />
       <Route path='login' element = {<LoginPage />} />
       <Route path=':id/edit' element = {<EditRecipePage />} />
+      <Route path='search/:title' element = {<SearchRecipePage />} />
+      <Route path='/favorites' element={<FavoritesRecipesPage />} />
     </Routes>
 
 <ToastContainer position='bottom-right' />

@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-import React from 'react'
-
-export const RecipesPage = () => {
-  return (
-    <div>RecipesPage</div>
-  )
-}
-=======
 import React from 'react';
 import {useEffect} from 'react';
 import {useState} from 'react';
@@ -39,4 +30,3 @@ useEffect(() =>{
         </div>
   );
 };
->>>>>>> recovery-branch

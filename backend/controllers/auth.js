@@ -6,11 +6,7 @@ import jwt from 'jsonwebtoken';
 export const register = async(req, res) => {
     try {
         const {userName, password} = req.body;
-<<<<<<< HEAD
-
-=======
         
->>>>>>> recovery-branch
         const isUsed = await User.findOne ({userName})
 
         if(isUsed) {
@@ -27,11 +23,7 @@ export const register = async(req, res) => {
             userName,
             password: hash,
         })
-<<<<<<< HEAD
-
-=======
        
->>>>>>> recovery-branch
         const token = jwt.sign(
             {
                 id: newUser._id,
@@ -49,12 +41,7 @@ export const register = async(req, res) => {
         })
     }catch (error) {
         
-<<<<<<< HEAD
         res.json({message: 'Error creating user' })
-=======
-       
-        res.json({ message: `Error creating user` });
->>>>>>> recovery-branch
     }
 }
 

@@ -1,20 +1,13 @@
 import Recipe from '../models/Recipe.js';
 import User from '../models/User.js';
-<<<<<<< HEAD
-=======
 import Comment from '../models/Comment.js'
->>>>>>> recovery-branch
 import path, {dirname} from 'path';
 import {fileURLToPath} from 'url'
 
 //Create Recipe
 export const createRecipe = async (req, res) =>{
 try {
-<<<<<<< HEAD
-    const {title, text} = req.body;
-=======
     const {title, description, ingredients, instruction} = req.body;
->>>>>>> recovery-branch
     const user = await User.findById(req.userId);
 
 if(req.files) {
@@ -32,19 +25,11 @@ if(req.files) {
         author: req.userId,
     })
 
-<<<<<<< HEAD
-    await newRecipeWithImage.seve();
-    await User.findByIdAndUpdate(req.userId, {
-        $push: {recipes: newRecipeWithImage},
-    })
-
-=======
     await newRecipeWithImage.save();
     await User.findByIdAndUpdate(req.userId, {
         $push: {recipes: newRecipeWithImage},
     })
     
->>>>>>> recovery-branch
     return res.json({newRecipeWithImage});
 }
 
@@ -62,16 +47,9 @@ await newRecipeWithoutImg.save();
 await User.findByIdAndUpdate(req.userId, {
     $push: {recipes: newRecipeWithoutImg},
 })
-<<<<<<< HEAD
 res.json(newRecipeWithoutImg)
 
 } catch (error) {
-=======
-return  res.json(newRecipeWithoutImg)
-
-} catch (error) {
-    console.log(error)
->>>>>>> recovery-branch
     res.json({message: 'Something went wrong'})
 }
 }
@@ -84,21 +62,13 @@ export const getAll = async(req,res) => {
         const popularRecipes = await Recipe.find().limit(5).sort('-views')
         if(!recipes){
             return res.json({message: 'No recipes'});
-<<<<<<< HEAD
-
-            res.json({recipes, popularRecipes})
-        }
-=======
         }
             res.json({recipes, popularRecipes})
         
->>>>>>> recovery-branch
     } catch (error) {
         res.json({message: 'Somesing get wrong' })
     }
 }
-<<<<<<< HEAD
-=======
 
 //Get recipe by Id
 
@@ -186,4 +156,22 @@ export const getRecipeComments = async (req, res) => {
         res.json({message: 'Somesing get wrong' })
     }
 }
->>>>>>> recovery-branch
+
+//serch recipe by title
+
+export const searchRecipeByTitle = async (req, res) => {
+    const title = req.params?.title?.trim();
+
+    if( !title){
+        return res.status(400).json({message: 'No Matched Recipe Found'});
+    }
+    const queryTitle = new RegExp(title, 'i');
+        try {
+            const search_results = await  Recipe.find({title: queryTitle});
+            res.status(200).json(search_results);
+        } catch (error) {
+            console.error('Search error:', error);
+            res.status(500).json({message: 'Server error while searching recipes'})
+        } 
+    };
+
